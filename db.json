@@ -1,0 +1,69 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "todoList": [
+    {
+      "text": "sample",
+      "status": true,
+      "id": 1
+    },
+    {
+      "text": "From",
+      "status": false,
+      "id": 3
+    }
+  ],
+  "weatherList": [
+    {
+      "id": 1,
+      "city": "Bulacan",
+      "temp": 30,
+      "tempType": "C"
+    },
+    {
+      "id": 2,
+      "city": "Manila",
+      "temp": 31,
+      "tempType": "C"
+    },
+    {
+      "id": 3,
+      "city": "Davao",
+      "temp": 32,
+      "tempType": "C"
+    },
+    {
+      "id": 4,
+      "city": "Cavity",
+      "temp": 33,
+      "tempType": "F"
+    },
+    {
+      "id": 5,
+      "city": "Butuan",
+      "temp": 34,
+      "tempType": "F"
+    },
+    {
+      "id": 6,
+      "city": "Iloilo",
+      "temp": 35,
+      "tempType": "C"
+    }
+  ]
+}
