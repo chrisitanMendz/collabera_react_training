@@ -25,6 +25,7 @@ module.exports = {
     'react/function-component-definition': 0,
     'no-alert': 0,
     'arrow-body-style': 0,
+    'react/jsx-props-no-spreading': 0,
     // 'react/function-component-definition': {
     //   namedComponents:
     //     'function-declaration' |
