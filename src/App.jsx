@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import Weather from './Weather';
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
-export default class App extends PureComponent {
-  render() {
-    return <Weather />;
-  }
-}
+const App = () => {
+  return <RouterProvider router={router} />;
+};
+
+export default App;
