@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Radio({
-  field: { name, value, onChange }, // { name, value, onChange, onBlur }
+function Checkbox({
+  field: { name, value }, // { name, value, onChange, onBlur }
   form: { touched, errors, setFieldValue, setFieldTouched }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   meta,
   label,
@@ -18,21 +18,29 @@ function Radio({
             type="checkbox"
             name={name}
             id={x.id}
+            checked={value.some(val => val === x.id)}
             onChange={() => {
-              if (value.includes(x.id)) {
-                const newValue = value.filter(item => item !== x.id);
-                setFieldValue(name, newValue);
-              } else {
+              const index = value.findIndex(val => val === x.id);
+              if (index === -1) {
+                // add the item
                 setFieldValue(name, [...value, x.id]);
+              } else {
+                // remove the item
+                setFieldValue(name, [
+                  ...value.slice(0, index),
+                  ...value.slice(index + 1),
+                ]);
               }
             }}
           />
           <label htmlFor={x.id}>{x.text}</label>
         </div>
       ))}
-      {touched[name] && errors[name] && <p className="text-red-500 text-sm font-medium">{errors[name]}</p>}
+      {touched[name] && errors[name] && (
+        <p className="text-red-500 text-sm font-medium">{errors[name]}</p>
+      )}
     </fieldset>
   );
 }
 
-export default Radio;
+export default Checkbox;

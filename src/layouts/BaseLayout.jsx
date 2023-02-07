@@ -1,13 +1,13 @@
 import React from 'react';
-import { Outlet } from 'react-router';
-import { AuthProvider } from '../contexts/authContext';
+import { Outlet } from 'react-router-dom';
+import { AuthProvider } from '../context/authContext';
 
-const BaseLayout = () => {
+function BaseLayout() {
   return (
     <AuthProvider>
       <Outlet />
     </AuthProvider>
   );
-};
+}
 
 export default BaseLayout;

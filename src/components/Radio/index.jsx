@@ -13,7 +13,7 @@ function Radio({
     <fieldset>
       <legend>{label}</legend>
       {options.map(x => (
-        <div key={x.id}>
+        <div key={x.value}>
           <input
             type="radio"
             name={name}
@@ -27,7 +27,9 @@ function Radio({
           <label htmlFor={x.id}>{x.text}</label>
         </div>
       ))}
-      {touched[name] && errors[name] && <p className="text-red-500 text-sm font-medium">{errors[name]}</p>}
+      {touched[name] && errors[name] && (
+        <p className="text-red-500 text-sm font-medium">{errors[name]}</p>
+      )}
     </fieldset>
   );
 }

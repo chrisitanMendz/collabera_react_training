@@ -1,12 +1,16 @@
 import React from 'react';
-import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
-import AuthLayout from './layouts/authLayout';
-import BaseLayout from './layouts/baseLayout';
-import MainLayout from './layouts/MainLayout';
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import NotFound from './pages/NotFound';
 import Register from './pages/Register';
+import AuthLayout from './layouts/authLayout';
+import BaseLayout from './layouts/baseLayout';
+import NotFound from './pages/NotFound';
+import MainLayout from './layouts/mainLayout';
 
 export default createBrowserRouter(
   createRoutesFromElements(

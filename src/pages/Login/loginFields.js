@@ -1,4 +1,4 @@
-import Input from '../../global/Input';
+import Input from '../../components/Input';
 
 export const loginFields = [
   {
@@ -7,7 +7,7 @@ export const loginFields = [
     id: 'email-address',
     type: 'email',
     'data-value': '',
-    // autoComplete: 'email',
+    autoComplete: 'email',
     placeholder: 'Email',
     className: 'rounded-t-md',
     validate: value => {
@@ -23,7 +23,7 @@ export const loginFields = [
     id: 'password',
     type: 'password',
     'data-value': '',
-    // autoComplete: 'current-password',
+    autoComplete: 'current-password',
     placeholder: 'Password',
     className: 'rounded-b-md',
     validate: value => {
@@ -35,4 +35,7 @@ export const loginFields = [
   },
 ];
 
-export const loginInitialValues = loginFields.reduce((p, c) => ({ ...p, [c.name]: c['data-value'] }), {});
+export const loginInitialValues = loginFields.reduce(
+  (p, c) => ({ ...p, [c.name]: c['data-value'] }),
+  {},
+);
