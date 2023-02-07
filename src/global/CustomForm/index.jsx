@@ -14,8 +14,8 @@ const CustomForm = ({ fields, btnText, children, ...props }) => {
             <button
               type="submit"
               className={`text-sm text-white font-semibold bg-blue-500 px-3 py-1 rounded-md mt-3
-              ${!(isValid || dirty || isSubmitting) && 'opacity-25'}`}
-              disabled={!(isValid || dirty || isSubmitting)}
+              disabled:opacity-25`}
+              disabled={!(isValid || dirty) || isSubmitting}
             >
               {btnText}
             </button>

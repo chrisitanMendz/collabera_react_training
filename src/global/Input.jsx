@@ -27,7 +27,7 @@ function Input({
           {...props}
         />
         {touched[field.name] && errors[field.name] && (
-          <p className="text-red-500 text-sm font-medium">{errors[field.name]}</p>
+          <p className="text-red-500 text-xs ml-2 font-medium">{errors[field.name]}</p>
         )}
       </div>
     </div>
