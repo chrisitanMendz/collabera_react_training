@@ -4,7 +4,7 @@ import React from 'react';
 const CustomForm = ({ fields, btnText, children, ...props }) => {
   return (
     <Formik {...props}>
-      {(isValid, dirty, isSubmitting, errors) => (
+      {({ isValid, dirty, isSubmitting, errors }) => (
         <div className="max-w-sm mx-auto">
           {console.log(errors)}
           {errors?.serverError && <p className="text-red-400 text-xs my-3">{errors.serverError}</p>}

@@ -10,7 +10,7 @@ const Login = () => {
   const onSbumit = async (value, actions) => {
     const { confirmPassword, ...rest } = value;
     const URL = 'http://localhost:3000/register';
-    const [res, error] = await Fetch(URL, {
+    const [, error] = await Fetch(URL, {
       method: 'POST',
       body: JSON.stringify(rest),
       headers: {
@@ -18,17 +18,12 @@ const Login = () => {
         Accept: 'application/json',
       },
     });
-    console.log(actions);
     if (error) {
-      console.log(error);
       actions.setErrors({ serverError: error });
+      return;
     }
-    // if (error) {
-    //   action.setErrors({ serverError: error.message });
-    //   return;
-    // }
-    // action.resetForm();
-    // navigate('dashboard', { replace: true });
+    actions.resetForm();
+    navigate('dashboard', { replace: true });
   };
 
   return (
