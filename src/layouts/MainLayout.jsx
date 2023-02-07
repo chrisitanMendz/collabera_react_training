@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { Outlet, useNavigate } from 'react-router';
+import { Navigate, Outlet } from 'react-router';
 import { AuthContext } from '../contexts/authContext';
 
 const MainLayout = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   if (!user) {
-    navigate('/auth', { replace: true });
+    console.log(user);
+    <Navigate to="/auth" replace />;
   }
 
   return (

@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/authContext';
 
 const Home = () => {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
+  console.log(user);
 
   return (
     <div>

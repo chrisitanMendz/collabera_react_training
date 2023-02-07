@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/authContext';
 
 const AuthLayout = () => {
-  // const { user } = useContext(AuthContext);
-  // const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
-  // if (user) {
-  //   navigate('/auth', { replace: true });
-  // }
+  if (user) {
+    console.log('asdasd');
+    <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <div>
