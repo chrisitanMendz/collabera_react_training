@@ -1,12 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router';
+import { AuthProvider } from '../contexts/authContext';
 
 const BaseLayout = () => {
   return (
-    <>
-      <h2>Base Component</h2>
+    <AuthProvider>
       <Outlet />
-    </>
+    </AuthProvider>
   );
 };
 

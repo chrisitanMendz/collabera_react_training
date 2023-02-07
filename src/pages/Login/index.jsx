@@ -1,30 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
+import React, { useContext } from 'react';
 import { loginFields, loginInitialValues } from './loginFields';
 import CustomForm from '../../global/CustomForm';
-import Fetch from '../../global/TryCatchFetch';
+import { AuthContext } from '../../contexts/authContext';
 
 const Login = () => {
-  const navigate = useNavigate();
-
-  const onSubmit = async (value, action) => {
-    const URL = 'http://localhost:3000/signin';
-    const [, error] = await Fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(value),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    });
-    if (error) {
-      action.setErrors({ serverError: error });
-      return;
-    }
-    navigate('/dashboard', { replace: true });
-  };
-
-  return <CustomForm initialValues={loginInitialValues} onSubmit={onSubmit} fields={loginFields} btnText="Sign in" />;
+  const { login } = useContext(AuthContext);
+  return <CustomForm initialValues={loginInitialValues} onSubmit={login} fields={loginFields} btnText="Sign in" />;
 };
 
 export default Login;

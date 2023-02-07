@@ -6,7 +6,6 @@ const CustomForm = ({ fields, btnText, children, ...props }) => {
     <Formik {...props}>
       {({ isValid, dirty, isSubmitting, errors }) => (
         <div className="max-w-sm mx-auto">
-          {console.log(errors)}
           {errors?.serverError && <p className="text-red-400 text-xs my-3">{errors.serverError}</p>}
           <Form>
             {fields.map(item => (
