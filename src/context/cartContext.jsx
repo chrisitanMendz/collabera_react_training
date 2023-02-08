@@ -32,14 +32,45 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
+  const updateCart = useCallback(async data => {
+    try {
+      const { id, ...rest } = data;
+      const res = await axiosIntance.put(`660/cart/${id}`, rest);
+
+      setCart(prev =>
+        prev.map(item => {
+          if (rest.productId === item.productId) {
+            return res;
+          }
+          return item;
+        }),
+      );
+    } catch (err) {
+      setError(err.message);
+    }
+  }, []);
+
+  const deleteCart = useCallback(async data => {
+    const { id } = data;
+    try {
+      await axiosIntance.delete(`660/cart/${id}`);
+      setCart(prev => prev.filter(item => item.productId !== data.productId));
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    }
+  }, []);
+
   const value = useMemo(
     () => ({
       cart,
       error,
       loadCart,
       addToCart,
+      updateCart,
+      deleteCart,
     }),
-    [cart, error, loadCart, addToCart],
+    [cart, error, loadCart, addToCart, updateCart, deleteCart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

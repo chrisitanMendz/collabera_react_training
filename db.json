@@ -71,7 +71,10 @@
       "email": "christian@gmail.com",
       "password": "$2a$10$XBHCPedCxE9HZRja.i9Up.ugfqV7OmWhh9MM4UepigKop5pww5nt.",
       "Gender": "male",
-      "hobies": ["basketball", "egames"],
+      "hobies": [
+        "basketball",
+        "egames"
+      ],
       "id": 1
     }
   ],
