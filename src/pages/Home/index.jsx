@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useProductsContext } from '../../context/productContext';
 import { StarIcon } from '@heroicons/react/24/solid';
+import { useProductsContext } from '../../context/productContext';
+import { useCartContext } from '../../context/cartContext';
 
 function Home() {
   const { products, getProducts } = useProductsContext();
+  const { loadCart, cart, error } = useCartContext();
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
     getProducts();
+    loadCart();
   }, []);
-
-  useEffect(() => {
-    filterCategory();
-  }, [products]);
 
   const filterCategory = () => {
     let newArr = [];
@@ -25,9 +24,17 @@ function Home() {
     setCategoryOptions(newArr);
   };
 
+  useEffect(() => {
+    filterCategory();
+  }, [products]);
+
   const toFilter = e => {
     setFilter(e.target.value);
   };
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-5 px-5">
@@ -50,7 +57,7 @@ function Home() {
           return (
             <div
               key={item.id}
-              className="flex flex-col mb-4 mx-2 px-2 pb-2 shadow-sm bg-white duration-300
+              className="flex flex-col mb-4 mx-2 px-2 py-2 shadow-sm bg-white duration-300
               hover:scale-105 hover:shadow-xl"
             >
               <div className="w-52 h-52 grid place-items-center overflow-hidden">
