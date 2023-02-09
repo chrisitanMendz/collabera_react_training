@@ -1,30 +1,31 @@
-import Axios from 'axios';
+import axios from 'axios';
 
-const axiosInstance = Axios.create({
+const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
-  timeout: 5000,
+  timeout: '5000',
   timeoutErrorMessage: 'Request Timeout. try after sometime',
 });
 
 axiosInstance.interceptors.request.use(
   config => {
+    const updatedConfig = { ...config };
     const token = localStorage.getItem('token');
     if (token) {
       const jsonToken = JSON.parse(token);
-      config.headers.Authorization = `Bearer ${jsonToken.accessToken}`;
+      updatedConfig.headers.Authorization = `Bearer ${jsonToken.accessToken}`;
     }
-    return config;
+    return updatedConfig;
   },
-  err => Promise.reject(err),
+  error => Promise.reject(error),
 );
 
 axiosInstance.interceptors.response.use(
-  res => res.data,
-  err => {
-    if (err?.response.data) {
-      return Promise.reject(new Error(err.response.data));
+  response => response.data,
+  error => {
+    if (error?.response?.data) {
+      return Promise.reject(new Error(error.response.data));
     }
-    return Promise.reject(err);
+    return Promise.reject(error);
   },
 );
 

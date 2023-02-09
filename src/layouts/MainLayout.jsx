@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuthContext } from '../context/authContext';
 import Header from '../components/Header';
-import { ProductProvider } from '../context/productContext';
+import { ProductsProvider } from '../context/productsContext';
 import { CartProvider } from '../context/cartContext';
 
 function MainLayout() {
@@ -13,14 +13,12 @@ function MainLayout() {
   }
 
   return (
-    <ProductProvider>
+    <ProductsProvider>
       <CartProvider>
-        <>
-          <Header />
-          <Outlet />
-        </>
+        <Header />
+        <Outlet />
       </CartProvider>
-    </ProductProvider>
+    </ProductsProvider>
   );
 }
 

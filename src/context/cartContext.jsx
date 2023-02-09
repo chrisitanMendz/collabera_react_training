@@ -6,129 +6,95 @@ import React, {
   useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import axiosIntance from '../utils/axiosInstance';
+import { cartInitialValue, cartReducer } from '../reducers/cartReducer';
+import useApiRequest from '../hooks/useApiRequest';
+import { useErrorContext } from './errorContext';
+import { useLoadingContext } from './loadingContext';
 
 export const CartContext = createContext();
 
-const cartInitialValue = {
-  loading: false,
-  cart: [],
-  error: '',
-};
+export function CartProvider({ children }) {
+  const [cart, dispatch] = useReducer(cartReducer, cartInitialValue);
+  const { dispatchErrors } = useErrorContext();
+  const { dispatchLoading } = useLoadingContext();
+  const apiRequest = useApiRequest({
+    dispatch,
+    dispatchLoading,
+    dispatchErrors,
+  });
 
-const cartReducer = (state, { type, payload }) => {
-  switch (type) {
-    case 'LOAD_CART_REQUEST':
-    case 'ADD_CART_REQUEST':
-    case 'UPDATE_CART_REQUEST':
-    case 'DELETE_CART_REQUEST':
-      return { ...state, loading: true };
-
-    case 'LOAD_CART_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        cart: payload,
-      };
-
-    case 'ADD_CART_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        cart: [...state.cart, payload],
-      };
-
-    case 'UPDATE_CART_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        cart: state.cart.map(item => {
-          if (payload.productId === item.productId) {
-            return payload;
-          }
-          return item;
-        }),
-      };
-
-    case 'DELETE_CART_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        cart: state.cart.filter(item => item.productId !== payload.productId),
-      };
-
-    case 'LOAD_CART_FAIL':
-    case 'ADD_CART_FAIL':
-    case 'UPDATE_CART_FAIL':
-    case 'DELETE_CART_FAIL':
-      return { ...state, loading: false, error: payload };
-
-    default:
-      return state;
-  }
-};
-
-export const CartProvider = ({ children }) => {
-  const [cartState, dispatch] = useReducer(cartReducer, cartInitialValue);
   const loadCart = useCallback(async () => {
-    try {
-      dispatch({ type: 'LOAD_CART_REQUEST' });
-      const res = await axiosIntance.get('660/cart');
-      dispatch({ type: 'ADD_CART_SUCCESS', payload: res });
-    } catch (err) {
-      dispatch({ type: 'LOAD_CART_FAIL', payload: err.message });
-    }
-  }, []);
+    const type = 'LOAD_CART';
+    apiRequest({
+      apiData: {
+        method: 'get',
+        url: '660/cart',
+      },
+      type,
+    });
+  }, [apiRequest]);
 
-  const addToCart = useCallback(async data => {
-    try {
-      dispatch({ type: 'ADD_CART_REQUEST' });
-      const res = await axiosIntance.post('660/cart', data);
-      dispatch({ type: 'ADD_CART_SUCCESS', payload: res });
-    } catch (err) {
-      dispatch({ type: 'ADD_CART_FAIL', payload: err.message });
-    }
-  }, []);
+  const addToCart = useCallback(
+    async data => {
+      const type = 'ADD_CART';
+      apiRequest({
+        apiData: {
+          method: 'post',
+          url: '660/cart',
+          data,
+        },
+        type,
+      });
+    },
+    [apiRequest],
+  );
 
-  const updateCart = useCallback(async data => {
-    try {
-      dispatch({ type: 'UPDATE_CART_REQUEST' });
-      const { id, ...rest } = data;
-      const res = await axiosIntance.put(`660/cart/${id}`, rest);
-      dispatch({ type: 'UPDATE_CART_SUCCESS', payload: res });
-    } catch (err) {
-      dispatch({ type: 'UPDATE_CART_FAIL', payload: err.message });
-    }
-  }, []);
+  const updateCart = useCallback(
+    async data => {
+      const type = 'UPDATE_CART';
+      apiRequest({
+        apiData: {
+          method: 'put',
+          url: `660/cart/${data.id}`,
+          data,
+        },
+        type,
+      });
+    },
+    [apiRequest],
+  );
 
-  const deleteCart = useCallback(async data => {
-    const { id } = data;
-    try {
-      dispatch({ type: 'DELETE_CART_REQUEST' });
-      await axiosIntance.delete(`660/cart/${id}`);
-
-      dispatch({ type: 'DELETE_CART_SUCCESS', payload: data });
-    } catch (err) {
-      dispatch({ type: 'DELETE_CART_FAIL', payload: err.message });
-    }
-  }, []);
+  const deleteCart = useCallback(
+    async data => {
+      const type = 'DELETE_CART';
+      apiRequest({
+        apiData: {
+          method: 'delete',
+          url: `660/cart/${data.id}`,
+          data,
+        },
+        type,
+      });
+    },
+    [apiRequest],
+  );
 
   const value = useMemo(
     () => ({
-      cartState,
       loadCart,
       addToCart,
       updateCart,
       deleteCart,
+      cart,
     }),
-    [cartState, loadCart, addToCart, updateCart, deleteCart],
+    [loadCart, addToCart, updateCart, deleteCart, cart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-};
+}
 
 CartProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export const useCartContext = () => useContext(CartContext);
