@@ -69,13 +69,13 @@
   "users": [
     {
       "email": "christian@gmail.com",
-      "password": "$2a$10$XBHCPedCxE9HZRja.i9Up.ugfqV7OmWhh9MM4UepigKop5pww5nt.",
-      "Gender": "male",
-      "hobies": [
-        "basketball",
-        "egames"
+      "name": "Frontend Developer",
+      "gender": "male",
+      "hobbies": [
+        "golf"
       ],
-      "id": 1
+      "id": 1,
+      "password": "$2a$10$LPH6Evy74LSc6Tbch2.7BepbqeFGbgDLcWM/tB8MfleiVA2dZ52Ci"
     }
   ],
   "products": [

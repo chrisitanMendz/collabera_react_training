@@ -1,18 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { loginFields, loginInitialValues } from './loginFields';
+import {
+  changePasswordFields,
+  changePasswordInitialValues,
+} from './changePasswordField';
 import CustomForm from '../../components/CustomForm';
 import { useAuthContext } from '../../context/authContext';
 
-function Login() {
-  const { login } = useAuthContext();
+function ChangePassword() {
+  const { changePassword } = useAuthContext();
 
   return (
     <CustomForm
-      initialValues={loginInitialValues}
-      onSubmit={login}
-      fields={loginFields}
-      btnText="Sign in"
+      initialValues={changePasswordInitialValues}
+      onSubmit={changePassword}
+      fields={changePasswordFields}
+      btnText="Change Password"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center">
@@ -32,10 +35,10 @@ function Login() {
 
         <div className="text-sm">
           <Link
-            to="changePassword"
+            to="/auth"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
-            Change password
+            Sign in
           </Link>
         </div>
       </div>
@@ -43,4 +46,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ChangePassword;

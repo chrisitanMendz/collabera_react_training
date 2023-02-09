@@ -11,6 +11,7 @@ import AuthLayout from './layouts/authLayout';
 import BaseLayout from './layouts/baseLayout';
 import NotFound from './pages/NotFound';
 import MainLayout from './layouts/mainLayout';
+import ChangePassword from './pages/ChangePassword';
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ export default createBrowserRouter(
       <Route path="auth" element={<AuthLayout />}>
         <Route index element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="changepassword" element={<ChangePassword />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>,

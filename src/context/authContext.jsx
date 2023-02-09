@@ -42,6 +42,54 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const changePassword = useCallback(async (values, actions) => {
+    try {
+      const { confirmPassword, newPassword, ...rest } = values;
+
+      if (confirmPassword !== newPassword) {
+        throw new Error('New password and confirm password does not match!');
+      }
+
+      const resLogin = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        body: JSON.stringify(rest),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+      const jsonLogin = await resLogin.json();
+      if (!resLogin.ok) {
+        throw new Error(jsonLogin);
+      }
+
+      const res = await fetch(
+        `http://localhost:3000/users/${jsonLogin.user.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            ...jsonLogin.user,
+            email: rest.email,
+            password: newPassword,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        },
+      );
+      if (!res.ok) {
+        throw new Error(jsonLogin);
+      }
+
+      setUser(jsonLogin);
+      localStorage.setItem('token', JSON.stringify(jsonLogin));
+      actions.resetForm();
+    } catch (error) {
+      actions.setErrors({ serverError: error.message });
+    }
+  }, []);
+
   const register = useCallback(async (values, actions) => {
     try {
       const { confirmPassword, ...rest } = values;
@@ -75,10 +123,11 @@ export function AuthProvider({ children }) {
     () => ({
       login,
       register,
+      changePassword,
       logout,
       user,
     }),
-    [login, register, logout, user],
+    [login, register, changePassword, logout, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
