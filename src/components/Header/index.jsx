@@ -8,6 +8,7 @@ import {
 import { useAuthContext } from '../../context/authContext';
 import { useCartContext } from '../../context/cartContext';
 import Checkout from '../Checkout';
+import { connect } from 'react-redux';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -20,7 +21,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function Header() {
+function Header({ theme }) {
   const { logout } = useAuthContext();
   const { cart } = useCartContext();
   const [open, setOpen] = useState(false);
@@ -31,6 +32,7 @@ function Header() {
 
   return (
     <>
+      <h1>{theme}</h1>
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
@@ -187,4 +189,10 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = store => ({
+  theme: store.theme,
+});
+
+const mapDispatchToProps = () => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
