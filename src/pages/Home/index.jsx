@@ -5,8 +5,13 @@ import { useCartContext } from '../../context/cartContext';
 
 function Home() {
   const { products, getProducts } = useProductsContext();
-  const { loadCart, cart, addToCart, updateCart, deleteCart, error } =
-    useCartContext();
+  const {
+    cartState: { cart, error },
+    loadCart,
+    addToCart,
+    updateCart,
+    deleteCart,
+  } = useCartContext();
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [filter, setFilter] = useState('');
 
