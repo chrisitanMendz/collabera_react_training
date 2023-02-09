@@ -1,9 +1,13 @@
 import React from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { useCartContext } from '../../context/cartContext';
+import { useLoadingContext } from '../../context/loadingContext';
 
 const Product = ({ item, cartItem }) => {
   const { addToCart, updateCart, deleteCart } = useCartContext();
+  const { loading } = useLoadingContext();
+  const currentLoading = loading.some(x => x?.loadingId === item.id);
+
   return (
     <div
       key={item.id}
@@ -35,7 +39,10 @@ const Product = ({ item, cartItem }) => {
       </div>
       {!cartItem ? (
         <button
-          className="text-xs font-semibold bg-blue-600 text-white py-2 mt-auto duration-300 hover:opacity-75"
+          className="text-xs font-semibold bg-blue-600 text-white py-2 mt-auto duration-300 
+          hover:opacity-75
+          disabled:bg-gray-500 disabled:cursor-wait"
+          disabled={currentLoading}
           onClick={() =>
             addToCart({
               productId: item.id,
@@ -48,7 +55,10 @@ const Product = ({ item, cartItem }) => {
       ) : (
         <div className="mt-auto flex justify-center">
           <button
-            className="text-xs font-semibold bg-blue-600 text-white h-8 w-16 duration-300 hover:opacity-75"
+            className="text-xs font-semibold bg-blue-600 text-white h-8 w-16 duration-300 
+            hover:opacity-75
+            disabled:bg-gray-500 disabled:cursor-wait"
+            disabled={currentLoading}
             onClick={() => {
               updateCart({
                 ...cartItem,
@@ -62,7 +72,10 @@ const Product = ({ item, cartItem }) => {
             {cartItem.quantity}
           </p>
           <button
-            className="text-xs font-semibold bg-blue-600 text-white h-8 w-16 duration-300 hover:opacity-75"
+            className="text-xs font-semibold bg-blue-600 text-white h-8 w-16 duration-300 
+            hover:opacity-75
+            disabled:bg-gray-500 disabled:cursor-wait"
+            disabled={currentLoading}
             onClick={() => {
               if (cartItem.quantity !== 1) {
                 updateCart({
