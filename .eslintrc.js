@@ -27,6 +27,7 @@ module.exports = {
     'arrow-body-style': 0,
     'react/jsx-props-no-spreading': 0,
     'no-plusplus': 0,
+    'default-param-last': 0,
     // 'react/function-component-definition': {
     //   namedComponents:
     //     'function-declaration' |
