@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
-import localeReducer from './localeReducer';
-import themeReducer from './themeReducer';
-import authReducer from './authReducer';
+import user from './userReducer';
+import loading from './loadingReducer';
+import errors from './errorReducer';
+import cart from './cartReducer';
+import products from './productReducer';
 
 export default combineReducers({
-  locale: localeReducer,
-  theme: themeReducer,
-  auth: authReducer,
+  user,
+  loading,
+  errors,
+  cart,
+  products,
 });

@@ -6,7 +6,7 @@ import React, {
   useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
-import { cartInitialValue, cartReducer } from '../reducers/cartReducer';
+import cartReducer, { cartInitialValue } from '../reducers/cartReducer';
 import useApiRequest from '../hooks/useApiRequest';
 import { useErrorContext } from './errorContext';
 import { useLoadingContext } from './loadingContext';
@@ -17,6 +17,7 @@ export function CartProvider({ children }) {
   const [cart, dispatch] = useReducer(cartReducer, cartInitialValue);
   const { dispatchErrors } = useErrorContext();
   const { dispatchLoading } = useLoadingContext();
+
   const apiRequest = useApiRequest({
     dispatch,
     dispatchLoading,
@@ -49,7 +50,7 @@ export function CartProvider({ children }) {
     [apiRequest],
   );
 
-  const updateCart = useCallback(
+  const updateCartItem = useCallback(
     async data => {
       const type = 'UPDATE_CART';
       apiRequest({
@@ -64,7 +65,7 @@ export function CartProvider({ children }) {
     [apiRequest],
   );
 
-  const deleteCart = useCallback(
+  const deleteCartItem = useCallback(
     async data => {
       const type = 'DELETE_CART';
       apiRequest({
@@ -83,11 +84,11 @@ export function CartProvider({ children }) {
     () => ({
       loadCart,
       addToCart,
-      updateCart,
-      deleteCart,
+      updateCartItem,
+      deleteCartItem,
       cart,
     }),
-    [loadCart, addToCart, updateCart, deleteCart, cart],
+    [loadCart, addToCart, updateCartItem, deleteCartItem, cart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

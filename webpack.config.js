@@ -1,29 +1,29 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// node.js inbuilt libarary
+// no need to install
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// Old Javascript Technique to Export content
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
-    publicPath: '/',
+    publicPath: '/', // nested routing
   },
+  mode: 'development',
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
       {
-        test: /\.(sass|less|css)$/,
+        test: /\.css$/i,
         exclude: /node_modules/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-        ],
+        // sequance should be right to left
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
     ],
   },
@@ -40,6 +40,6 @@ module.exports = {
     compress: true,
     port: 8080,
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: true, //routing
   },
 };

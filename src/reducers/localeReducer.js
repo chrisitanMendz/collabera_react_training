@@ -1,12 +1,11 @@
-const initialState = 'English';
+export const localeInitValue = 'English';
 
-const localeReducer = (state = initialState, { type, payload }) => {
+export const LocaleReducer = (state = localeInitValue, { type, payload }) => {
   switch (type) {
     case 'CHANGE_LOCALE':
-      return state === 'English' ? 'Filipino' : 'English';
+      return state === 'English' ? 'Franch' : 'English';
+
     default:
       return state;
   }
 };
-
-export default localeReducer;

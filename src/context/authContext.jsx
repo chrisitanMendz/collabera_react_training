@@ -7,12 +7,14 @@ import React, {
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import axiosInstance from '../utils/axiosInstance';
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
+  // component did mount
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -22,68 +24,9 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (values, actions) => {
     try {
-      const res = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json);
-      }
-      setUser(json);
-      localStorage.setItem('token', JSON.stringify(json));
-      actions.resetForm();
-    } catch (error) {
-      actions.setErrors({ serverError: error.message });
-    }
-  }, []);
-
-  const changePassword = useCallback(async (values, actions) => {
-    try {
-      const { confirmPassword, newPassword, ...rest } = values;
-
-      if (confirmPassword !== newPassword) {
-        throw new Error('New password and confirm password does not match!');
-      }
-
-      const resLogin = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        body: JSON.stringify(rest),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      const jsonLogin = await resLogin.json();
-      if (!resLogin.ok) {
-        throw new Error(jsonLogin);
-      }
-
-      const res = await fetch(
-        `http://localhost:3000/users/${jsonLogin.user.id}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify({
-            ...jsonLogin.user,
-            email: rest.email,
-            password: newPassword,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-        },
-      );
-      if (!res.ok) {
-        throw new Error(jsonLogin);
-      }
-
-      setUser(jsonLogin);
-      localStorage.setItem('token', JSON.stringify(jsonLogin));
+      const res = await axiosInstance.post('login', values);
+      setUser(res);
+      localStorage.setItem('token', JSON.stringify(res));
       actions.resetForm();
     } catch (error) {
       actions.setErrors({ serverError: error.message });
@@ -94,21 +37,10 @@ export function AuthProvider({ children }) {
     try {
       const { confirmPassword, ...rest } = values;
 
-      const res = await fetch('http://localhost:3000/register', {
-        method: 'POST',
-        body: JSON.stringify(rest),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json);
-      }
+      const res = await axiosInstance.post('register', rest);
       actions.resetForm();
-      setUser(json);
-      localStorage.setItem('token', JSON.stringify(json));
+      setUser(res);
+      localStorage.setItem('token', JSON.stringify(res));
     } catch (error) {
       actions.setErrors({ serverError: error.message });
     }
@@ -123,18 +55,17 @@ export function AuthProvider({ children }) {
     () => ({
       login,
       register,
-      changePassword,
       logout,
       user,
     }),
-    [login, register, changePassword, logout, user],
+    [login, register, logout, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 AuthProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export const useAuthContext = () => useContext(AuthContext);
