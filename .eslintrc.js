@@ -21,5 +21,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
     'default-param-last': 0,
+    'react/no-unescaped-entities': 0,
   },
 };

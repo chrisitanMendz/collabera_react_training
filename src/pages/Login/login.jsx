@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { loginFields, loginInitialValues } from './loginFields';
 import CustomForm from '../../components/CustomForm';
 
@@ -9,7 +10,7 @@ function Login({ login }) {
       initialValues={loginInitialValues}
       onSubmit={login}
       fields={loginFields}
-      btnText="Sign in"
+      btnText="Login"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center">
@@ -28,12 +29,12 @@ function Login({ login }) {
         </div>
 
         <div className="text-sm">
-          <a
-            href="/"
+          <Link
+            to="register"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
-            Forgot your password?
-          </a>
+            Doesn't have an account?
+          </Link>
         </div>
       </div>
     </CustomForm>

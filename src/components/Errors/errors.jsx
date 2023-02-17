@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 
 function Errors({ errors }) {
   return (
-    <div className="">
+    <div className="fixed left-8 bottom-0 flex flex-col">
       {errors.map((x, i) => (
         <div
           key={i}
-          className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 fixed left-10 min-w-[320px]"
+          className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[320px] mb-3"
           role="alert"
-          style={{
-            bottom: i * 90 + 10,
-          }}
         >
           <p className="font-bold">{x.title}</p>
           <p>{x.message}</p>

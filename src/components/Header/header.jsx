@@ -5,9 +5,6 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { connect } from 'react-redux';
-import { useAuthContext } from '../../context/authContext';
-import { useCartContext } from '../../context/cartContext';
 import Checkout from '../Checkout';
 
 const navigation = [
