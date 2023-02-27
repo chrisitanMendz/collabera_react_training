@@ -35,47 +35,6 @@
   ],
   "users": [
     {
-      "email": "yagnesh.modh@gmail.com",
-      "password": "$2a$10$nD8zamTN4ej43Jp3wFXRje.diQuUQkwAYk0lY/38JLoohFgyh98mS",
-      "name": "YAGNESH MODH",
-      "gender": "male",
-      "hobbies": [
-        "cricket",
-        "football"
-      ],
-      "id": 1
-    },
-    {
-      "email": "dsp.ce28@gmail.com",
-      "password": "$2a$10$u5G7dOCXzrpNT4o17BlRvuTHlAOf1JQo/NCpoqLG09yvMcDX7ivpm",
-      "name": "YAGNESH MODH",
-      "gender": "male",
-      "hobbies": [],
-      "id": 2
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "$2a$10$fh9WmHziw5emmqNI8BbRUuT0nZjowK.kYsZAhb4DifJylUlL9GXxG",
-      "name": "test",
-      "gender": "male",
-      "hobbies": [
-        "cricket",
-        "golf"
-      ],
-      "id": 3
-    },
-    {
-      "email": "test@test1.com",
-      "password": "$2a$10$xhTaHiTOoUZgsy27ztWF..A9lR2LlJTyQEoFfRPcOUZQ60H4e6.L.",
-      "name": "Test",
-      "gender": "female",
-      "hobbies": [
-        "football",
-        "golf"
-      ],
-      "id": 4
-    },
-    {
       "email": "cm062598@gmail.com",
       "password": "$2a$10$RjHDdplWUKJRhAyIytiYwuadj6esKhlyNW/j7/cAiE0HmAJGT7Qt2",
       "name": "Frontend Developer",
@@ -88,14 +47,7 @@
     },
     {
       "email": "christian@gmail.com",
-      "password": "$2a$10$XbPIK7WxD4I77xh/SfV.xeGc5eOOxuZLw5wX521kHXu.fNXzArVeS",
-      "name": "Christian Mendoza",
-      "gender": "male",
-      "hobbies": [
-        "football",
-        "golf"
-      ],
-      "confirmPassword": "1234",
+      "password": "$2a$10$ro.6cSc3EOGNzaMsKFzSheOGAEwko8CiWmyB8haWRqIXAlkfsBs9m",
       "id": 6
     }
   ],
@@ -346,6 +298,11 @@
       "productId": 2,
       "quantity": 1,
       "id": 1
+    },
+    {
+      "productId": 1,
+      "quantity": 1,
+      "id": 2
     }
   ],
   "errors": []

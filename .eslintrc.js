@@ -22,5 +22,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
     'default-param-last': 0,
     'react/no-unescaped-entities': 0,
+    'react/function-component-definition': 0,
+    'arrow-body-style': 0,
   },
 };
