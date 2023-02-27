@@ -51,7 +51,7 @@ function* changePassword({ payload, meta }) {
       data: payload,
     });
 
-    const update = yield call(axiosInstance, {
+    yield call(axiosInstance, {
       method: 'PUT',
       url: `users/${res.user.id}`,
       data: {

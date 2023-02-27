@@ -11,7 +11,6 @@ function BaseLayout() {
     if (token) {
       const JSONToken = JSON.parse(token);
       dispatch({ type: 'LOGIN_SUCCESS', payload: JSONToken });
-      window.location.href = '/auth';
     }
   }, [dispatch]);
 

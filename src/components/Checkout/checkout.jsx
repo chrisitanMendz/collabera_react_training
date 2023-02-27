@@ -53,7 +53,7 @@ function Checkout({ open, toggleCheckout, cart, deleteCartItem, products }) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul className="-my-6 divide-y divide-gray-200">
-                            {cart.map(cartItem => {
+                            {cart?.map(cartItem => {
                               const product = products.find(
                                 x => x.id === cartItem.productId,
                               );
@@ -117,7 +117,7 @@ function Checkout({ open, toggleCheckout, cart, deleteCartItem, products }) {
                             currency: 'INR',
                             style: 'currency',
                           }).format(
-                            cart.reduce((p, c) => {
+                            cart?.reduce((p, c) => {
                               const product = products.find(
                                 x => x.id === c.productId,
                               );
